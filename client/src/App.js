@@ -1,21 +1,45 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+import { accessToken, logout, getCurrentUserProfile } from './spotify';
 import './App.css';
+import { catchErrors } from './utils';
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    setToken(accessToken);
+    const fetchData = async () => {
+      const { data } = await getCurrentUserProfile();
+      setProfile(data);
+    };
+
+    catchErrors(fetchData());
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="http://localhost:8888/login"
-         
-        >
-          Login
-        </a>
+        {!token ? (
+          <a className="App-link" href="http://localhost:8888/login">
+            Log in to Spotify
+          </a>
+        ) : (
+          <>
+            <h1>Logged in!</h1>
+            <button onClick={logout}>Log Out</button>
+
+            {profile && (
+              <div>
+                <h1>{profile.display_name}</h1>
+                <p>{profile.followers.total} Followers</p>
+                {profile.images.length && profile.images[0].url && (
+                  <img src={profile.images[0].url} alt="Avatar" />
+                )}
+              </div>
+            )}
+          </>
+        )}
       </header>
     </div>
   );
