@@ -66,21 +66,11 @@ function App() {
             <ScrollToTop />
 
             <Routes>
-              <Route path="/top-artists">
-                <TopArtists />
-              </Route>
-              <Route path="/top-tracks">
-                <TopTracks />
-              </Route>
-              <Route path="/playlists/:id">
-                <Playlist />
-              </Route>
-              <Route path="/playlists">
-                <Playlists />
-              </Route>
-              <Route path="/">
-                <Profile />
-              </Route>
+              <Route path="/" element={<Profile />} />
+              <Route path="/top-artists" element={<TopArtists />} />
+              <Route path="/top-tracks" element={<TopTracks />} />
+              <Route path="/playlists/:id" element={<Playlist />} />
+              <Route path="/playlists" element={<Playlists />} />
             </Routes>
           </Router>
         </>
