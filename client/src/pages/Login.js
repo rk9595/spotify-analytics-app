@@ -27,7 +27,7 @@ const StyledLoginButton = styled.a`
 const LOGIN_URI =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:8888/login'
-    : ' http://localhost:3000/';
+    : ' https://web-production-6b05.up.railway.app/login';
 const Login = () => (
   <StyledLoginContainer>
     <StyledLoginButton href={LOGIN_URI}>Log in to Spotify</StyledLoginButton>
